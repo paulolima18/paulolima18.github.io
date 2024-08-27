@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Android Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6200ee;
+            --secondary-color: #03dac6;
+            --background-color: #fafafa;
+            --text-color: #333333;
+            --card-color: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInDown 1.5s ease forwards;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1.5s ease forwards 0.5s;
+        }
+
+        section {
+            padding: 80px 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            position: relative;
+            opacity: 0;
+            animation: fadeInScale 1s ease forwards;
+        }
+
+        h2::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background: var(--secondary-color);
+            display: block;
+            margin: 10px auto 0;
+            border-radius: 4px;
+            opacity: 0;
+            animation: fadeInWidth 1s ease forwards 0.5s;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-item {
+            background-color: var(--card-color);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            animation: fadeInScale 1s ease forwards;
+        }
+
+        .skill-item:hover {
+            transform: scale(1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-item {
+            background-color: var(--card-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            animation: fadeInScale 1s ease forwards;
+        }
+
+        .project-item:hover {
+            transform: scale(1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-image {
+            height: 200px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .contact-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease forwards;
+        }
+
+        .contact-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+        }
+
+        @keyframes fadeInDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeInWidth {
+            to {
+                opacity: 1;
+                width: 60px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 60px 20px;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Your Name</h1>
+            <p>Android Engineer | Open for Contract Work</p>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <p style="text-align: center;">Experienced Android engineer with a passion for creating efficient,
+                user-friendly mobile applications. Skilled in Java, Kotlin, and the latest Android development
+                practices.</p>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-item">Java</div>
+                <div class="skill-item">Kotlin</div>
+                <div class="skill-item">Android SDK</div>
+                <div class="skill-item">RESTful APIs</div>
+                <div class="skill-item">Git</div>
+                <div class="skill-item">CI/CD</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2>Projects</h2>
+            <div class="projects-grid">
+                <div class="project-item">
+                    <div class="project-image" style="background-image: url('https://via.placeholder.com/300x200');">
+                    </div>
+                    <div class="project-info">
+                        <h3>Project Name</h3>
+                        <p>Brief description of the project. Technologies used: Android, Kotlin, Room Database.</p>
+                    </div>
+                </div>
+                <!-- Add more project items as needed -->
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container" style="text-align: center;">
+            <h2>Get in Touch</h2>
+            <a href="mailto:your.email@example.com" class="contact-button">Contact Me</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; <span id="year"></span> Paulo Lima. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById("year").innerHTML = new Date().getFullYear();
+    </script>
+
+    <script>
+        // Intersection Observer for section animations
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+
+
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+
+</html>

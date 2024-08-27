@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paulo Lima - Android Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #e0e0e0;
+        }
+
+        .text-accent {
+            color: #00FF7F;
+        }
+
+        .bg-accent {
+            background-color: #00FF7F;
+        }
+
+        .bg-primary-dark {
+            background-color: #18271a;
+        }
+        .bg-secondary-dark {
+            background-color: #153a1a;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 0.9;
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .animate-pulse {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .animate-zoomIn {
+            animation: zoomIn 0.8s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .animate-slideInLeft {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .hover-effect:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-primary-dark text-gray-100">
+    <header class="bg-gradient-to-r from-black to-green-800 text-accent py-16 animate-fadeInUp">
+        <div
+            class="container mx-auto flex flex-col items-center justify-center text-center space-y-6 md:flex-row md:space-x-8 md:space-y-0">
+            <div
+                class="rounded-full border-4 border-accent shadow-lg overflow-hidden w-40 h-40 transform hover:scale-110 transition-transform duration-300">
+                <img src="./profile.jpg" alt="Your Photo" class="object-cover w-full h-full">
+            </div>
+            <div>
+                <h1 class="text-4xl font-semibold">Paulo Lima</h1>
+                <p class="mt-2 text-xl animate-pulse text-accent-light">Android Engineer | <span
+                        class="text-accent font-bold">Open for Contract Work</span></p>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="py-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-semibold text-accent mb-6 animate-fadeInUp">About Me</h2>
+            <p class="text-lg leading-relaxed mx-auto max-w-2xl">Experienced Android engineer with a passion for
+                creating efficient, user-friendly mobile applications. Skilled in Java, Kotlin, and the latest Android
+                development practices.</p>
+        </div>
+    </section>
+
+    <section id="projects" class="py-16 bg-green-900">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-semibold text-accent mb-6 text-center animate-fadeInUp">Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Web Project (Horizontal) -->
+                <div class="bg-primary-dark shadow-md rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 cursor-pointer md:flex hover-effect"
+                    onclick="location.href='https://trolhas.pt';">
+                    <div class="h-48 md:h-auto md:w-1/2 bg-cover bg-center"
+                        style="background-image: url('./trolhas.jpg');"></div>
+                    <div class="p-6 md:w-1/2">
+                        <h3 class="text-2xl font-semibold text-accent">TrolhasPT</h3>
+                        <p class="mt-2 text-gray-400">An open market to connect constructors in Portugal with their
+                            clients with honest reviews.</p>
+                        <div class="mt-4 flex flex-wrap">
+                            <span
+                                class="bg-accent text-black text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">NextJS</span>
+                            <span
+                                class="bg-accent text-black text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Project (Vertical with Mobile Print Display) -->
+                <div class="bg-primary-dark shadow-md rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 cursor-pointer flex flex-col items-center hover-effect"
+                    onclick="location.href='https://play.google.com/store/apps/details?id=com.wannabe.lifeagenda';">
+                    <div class="h-auto w-56 mt-4 bg-cover bg-center rounded-lg"
+                        style="background-image: url('./lifeagenda.png'); aspect-ratio: 9/19;"></div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-2xl font-semibold text-accent">LifeAgenda</h3>
+                        <p class="mt-2 text-gray-400">A simplified agenda for Android devices.</p>
+                        <div class="mt-4 flex justify-center flex-wrap">
+                            <span
+                                class="bg-accent text-black text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">Java</span>
+                            <span
+                                class="bg-accent text-black text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">Room</span>
+                            <span
+                                class="bg-accent text-black text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">XML</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add more project items with similar structure as needed -->
+            </div>
+        </div>
+    </section>
+
+    <section id="work" class="py-16">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-semibold text-accent mb-6 text-center animate-fadeInUp">Work Experience</h2>
+            <div class="space-y-8">
+                <div class="bg-secondary-dark shadow-md rounded-lg p-6 animate-fadeInUp">
+                    <h3 class="text-2xl font-semibold text-accent">Kuehne + Nagel International AG</h3>
+                    <p class="mt-2 text-gray-400">Position: Android Engineer</p>
+                    <p class="text-gray-500">Duration: 2023 - Present</p>
+                </div>
+                <div class="bg-secondary-dark shadow-md rounded-lg p-6 animate-fadeInUp">
+                    <h3 class="text-2xl font-semibold text-accent">Infraspeak</h3>
+                    <p class="mt-2 text-gray-400">Position: Android Developer</p>
+                    <p class="text-gray-500">Duration: 2021 - 2023</p>
+                </div>
+                <div class="bg-secondary-dark shadow-md rounded-lg p-6 animate-fadeInUp">
+                    <h3 class="text-2xl font-semibold text-accent">Nutrium</h3>
+                    <p class="mt-2 text-gray-400">Position: Android Developer</p>
+                    <p class="text-gray-500">Duration: 2020 - 2021</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="media" class="py-16 bg-green-900">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-semibold text-accent mb-6 text-center animate-fadeInUp">Media</h2>
+            <div id="video-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Videos will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-semibold
+            <h2 class=" text-3xl font-semibold text-accent mb-6 animate-fadeInUp">Stack</h2>
+            <div class="flex justify-center space-x-6">
+                <div
+                    class="bg-accent text-black font-semibold py-2 px-4 rounded-full shadow-md transform hover:scale-110 transition-transform duration-300 animate-slideInLeft">
+                    Android SDK</div>
+                <div
+                    class="bg-accent text-black font-semibold py-2 px-4 rounded-full shadow-md transform hover:scale-110 transition-transform duration-300 animate-slideInLeft">
+                    Kotlin</div>
+                <div
+                    class="bg-accent text-black font-semibold py-2 px-4 rounded-full shadow-md transform hover:scale-110 transition-transform duration-300 animate-slideInLeft">
+                    Compose</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 bg-green-900">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl font-semibold text-accent mb-6 animate-fadeInUp">Get in Touch</h2>
+            <a href="mailto:your.email@example.com"
+                class="bg-accent text-black font-semibold py-3 px-8 rounded-full shadow-md hover:bg-accent-dark transition-colors duration-300 animate-zoomIn">Contact
+                Me</a>
+        </div>
+    </section>
+
+    <footer class="bg-accent text-black py-4 text-center">
+        <p>&copy; <span id="year"></span> Paulo Lima. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        const videos = [
+            { id: "M7lc1UVf-VE", title: "Getting Started with YouTube Data API" },
+            { id: "bMknfKXIFA8", title: "JavaScript Tutorial for Beginners" },
+            // Add more video objects here
+        ];
+
+        function createVideoElement(video) {
+            return `
+                <div class="bg-primary-dark shadow-md rounded-lg p-6 animate-fadeInUp transform hover:scale-105 transition-transform duration-300">
+                    <iframe width="100%" height="430" src="https://www.youtube.com/embed/${video.id}" title="${video.title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <p class="mt-4 text-gray-400 text-center">${video.title}</p>
+                </div>
+            `;
+        }
+
+        function displayVideos() {
+            const videoContainer = document.getElementById('video-container');
+            videos.forEach(video => {
+                videoContainer.innerHTML += createVideoElement(video);
+            });
+        }
+
+        displayVideos();
+    </script>
+</body>
+
+</html>
