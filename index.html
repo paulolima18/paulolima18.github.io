@@ -1,267 +1,802 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paulo Lima - Android Engineer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            color: #e0e0e0;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paulo Lima — Android Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Epilogue:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:       #080c09;
+      --bg-card:  #0e1510;
+      --bg-muted: #111a12;
+      --accent:   #a3ff6b;
+      --accent-dim: rgba(163,255,107,0.12);
+      --accent-glow: rgba(163,255,107,0.22);
+      --text:     #e8ede8;
+      --muted:    #6b7c6b;
+      --border:   rgba(163,255,107,0.14);
+      --radius:   14px;
+    }
 
-        .text-accent {
-            color: #00FF7F;
-        }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        .bg-accent {
-            background-color: #00FF7F;
-        }
+    html { scroll-behavior: smooth; }
 
-        .bg-primary-dark {
-            background-color: #18271a;
-        }
-        .bg-secondary-dark {
-            background-color: #153a1a;
-        }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Epilogue', sans-serif;
+      font-weight: 300;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.55;
+    }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 48px;
+      backdrop-filter: blur(18px);
+      background: rgba(8,12,9,0.72);
+      border-bottom: 1px solid var(--border);
+    }
 
-        @keyframes pulse {
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+    }
 
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
 
-            50% {
-                transform: scale(1.05);
-                opacity: 0.9;
-            }
-        }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+    }
 
-        .animate-fadeInUp {
-            animation: fadeInUp 1s ease-out;
-        }
+    .nav-links a:hover { color: var(--accent); }
 
-        .animate-pulse {
-            animation: pulse 1.5s infinite;
-        }
+    /* ── HERO ── */
+    header {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 120px 48px 80px;
+      gap: 60px;
+      position: relative;
+    }
 
-        @keyframes zoomIn {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
+    /* large decorative circle */
+    header::after {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(163,255,107,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
+    .hero-text { position: relative; z-index: 1; }
 
-        .animate-zoomIn {
-            animation: zoomIn 0.8s ease-out;
-        }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.1s;
+    }
 
-        @keyframes slideInLeft {
-            from {
-                transform: translateX(-100%);
-                opacity: 0;
-            }
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3.2rem, 6vw, 5.6rem);
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.2s;
+    }
 
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
+    .hero-name span { color: var(--accent); }
 
-        .animate-slideInLeft {
-            animation: slideInLeft 1s ease-out;
-        }
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1rem, 2vw, 1.45rem);
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 14px;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.35s;
+    }
 
-        .hover-effect:hover {
-            transform: scale(1.05);
-            transition: transform 0.3s ease;
-        }
-    </style>
+    .hero-desc {
+      max-width: 480px;
+      color: var(--muted);
+      font-size: 0.97rem;
+      line-height: 1.75;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.5s;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 40px;
+      padding: 14px 30px;
+      background: var(--accent);
+      color: #060a06;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.02em;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.65s;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(163,255,107,0.3);
+    }
+
+    .hero-cta svg { width: 16px; height: 16px; }
+
+    .hero-photo-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 0.4s;
+    }
+
+    /* ring glow effect */
+    .hero-photo-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, var(--accent), transparent 40%, var(--accent) 80%, transparent);
+      animation: spinRing 8s linear infinite;
+      opacity: 0.5;
+    }
+
+    .hero-photo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -12px;
+      border-radius: 50%;
+      background: var(--bg);
+    }
+
+    @keyframes spinRing {
+      to { transform: rotate(360deg); }
+    }
+
+    .hero-photo {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      object-fit: cover;
+      position: relative;
+      z-index: 1;
+      border: 3px solid rgba(163,255,107,0.4);
+    }
+
+    /* ── SECTION COMMONS ── */
+    .section {
+      padding: 100px 48px;
+      position: relative;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-heading {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2rem, 3.5vw, 2.9rem);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 56px;
+    }
+
+    .section-alt { background: var(--bg-muted); }
+
+    /* scroll-in animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.in-view { opacity: 1; transform: none; }
+
+    /* stagger helpers */
+    .reveal-d1 { transition-delay: 0.05s; }
+    .reveal-d2 { transition-delay: 0.12s; }
+    .reveal-d3 { transition-delay: 0.19s; }
+    .reveal-d4 { transition-delay: 0.26s; }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.28s ease, border-color 0.28s, box-shadow 0.28s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(163,255,107,0.38);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px var(--accent-glow);
+    }
+
+    .project-thumb {
+      height: 210px;
+      background-color: var(--bg-muted);
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .project-thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,12,9,0.8) 0%, transparent 60%);
+    }
+
+    /* mobile project — portrait aspect */
+    .project-thumb.portrait {
+      height: 260px;
+      background-position: top center;
+    }
+
+    .project-body {
+      padding: 24px 26px 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 20px;
+    }
+
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 11px;
+      border-radius: 100px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid rgba(163,255,107,0.22);
+    }
+
+    .project-link-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 18px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .project-link-row svg { width: 12px; height: 12px; }
+
+    /* ── WORK EXPERIENCE ── */
+    .work-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-left: 1px solid var(--border);
+      margin-left: 8px;
+    }
+
+    .work-item {
+      padding: 32px 0 32px 40px;
+      position: relative;
+    }
+
+    .work-item::before {
+      content: '';
+      position: absolute;
+      left: -5px; top: 40px;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    .work-company {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.18rem;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+    .work-role {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .work-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-top: 8px;
+    }
+
+    /* ── STACK ── */
+    .stack-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .stack-pill {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 10px 22px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text);
+      transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.2s;
+    }
+
+    .stack-pill:hover {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ── MEDIA ── */
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    .media-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.28s, box-shadow 0.28s;
+    }
+
+    .media-card:hover {
+      border-color: rgba(163,255,107,0.3);
+      box-shadow: 0 16px 50px rgba(0,0,0,0.45);
+    }
+
+    .media-card iframe {
+      display: block;
+      width: 100%;
+      height: 220px;
+    }
+
+    .media-title {
+      padding: 14px 18px;
+      font-size: 0.84rem;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* ── CONTACT ── */
+    .contact-section {
+      text-align: center;
+      padding: 120px 48px;
+    }
+
+    .contact-section .section-label { justify-content: center; }
+    .contact-section .section-label::before { display: none; }
+
+    .contact-headline {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .contact-sub {
+      color: var(--muted);
+      max-width: 420px;
+      margin: 0 auto 44px;
+      font-size: 0.97rem;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 38px;
+      background: var(--accent);
+      color: #060a06;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.92rem;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .contact-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 48px rgba(163,255,107,0.35);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 28px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--accent);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 18px 24px; }
+      .nav-links { gap: 20px; }
+
+      header {
+        grid-template-columns: 1fr;
+        padding: 110px 24px 70px;
+        text-align: center;
+      }
+
+      header::after { display: none; }
+
+      .hero-text { order: 2; }
+      .hero-photo-wrap { order: 1; }
+      .hero-photo { width: 200px; height: 200px; }
+
+      .hero-desc { margin: 0 auto; }
+
+      .section { padding: 80px 24px; }
+      .contact-section { padding: 80px 24px; }
+      footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .projects-grid, .media-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
+<body>
 
-<body class="bg-primary-dark text-gray-100">
-    <header class="bg-gradient-to-r from-black to-green-800 text-accent py-16 animate-fadeInUp">
-        <div
-            class="container mx-auto flex flex-col items-center justify-center text-center space-y-6 md:flex-row md:space-x-8 md:space-y-0">
-            <div
-                class="rounded-full border-4 border-accent shadow-lg overflow-hidden w-40 h-40 transform hover:scale-110 transition-transform duration-300">
-                <img src="./profile.jpg" alt="Your Photo" class="object-cover w-full h-full">
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">PL</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#work">Experience</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header>
+    <div class="hero-text">
+      <div class="hero-eyebrow">Available for Contract Work</div>
+      <h1 class="hero-name">Paulo<br /><span>Lima</span></h1>
+      <p class="hero-title">Android Engineer</p>
+      <p class="hero-desc">Crafting efficient, user-first Android experiences with Kotlin and Jetpack Compose. Specialized in clean architecture, performant UIs, and modern mobile development.</p>
+      <a href="mailto:limap2886@gmail.com" class="hero-cta">
+        Get in touch
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 8h10M9 4l4 4-4 4"/>
+        </svg>
+      </a>
+    </div>
+    <div class="hero-photo-wrap">
+      <img src="./profile.jpg" alt="Paulo Lima" class="hero-photo" />
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about" class="section section-alt">
+    <div style="max-width:860px;margin:0 auto;">
+      <div class="section-label reveal">About Me</div>
+      <h2 class="section-heading reveal reveal-d1">Building apps people<br/>actually enjoy using.</h2>
+      <p class="reveal reveal-d2" style="color:var(--muted);font-size:1.02rem;line-height:1.8;max-width:640px;">
+        I'm an experienced Android engineer with a deep passion for crafting beautiful, performant mobile applications.
+        I care about every detail — from smooth animations to clean architecture — and I thrive in environments where
+        craft and quality matter. Open to contract projects and collaborations.
+      </p>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div class="section-label reveal">Selected Work</div>
+      <h2 class="section-heading reveal reveal-d1">Projects</h2>
+      <div class="projects-grid">
+
+        <!-- Web project -->
+        <a class="project-card reveal reveal-d2" href="https://jobatlas.appkickoff.dev/" target="_blank" rel="noopener">
+          <div class="project-thumb" style="background-image:url('./job.jpg');">
+            <div class="project-thumb-overlay"></div>
+          </div>
+          <div class="project-body">
+            <div class="project-name">JobAtlas</div>
+            <p class="project-desc">A job webscrapper searching for over 100K+ jobs in the market.</p>
+            <div class="project-tags">
+              <span class="tag">Next.js</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">Web</span>
             </div>
-            <div>
-                <h1 class="text-4xl font-semibold">Paulo Lima</h1>
-                <p class="mt-2 text-xl animate-pulse text-accent-light">Android Engineer | <span
-                        class="text-accent font-bold">Open for Contract Work</span></p>
+            <div class="project-link-row">
+              Visit https://jobatlas.appkickoff.dev/
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 6h8M6 2l4 4-4 4"/>
+              </svg>
             </div>
-        </div>
-    </header>
+          </div>
+        </a>
 
-    <section id="about" class="py-16">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-semibold text-accent mb-6 animate-fadeInUp">About Me</h2>
-            <p class="text-lg leading-relaxed mx-auto max-w-2xl">Experienced Android engineer with a passion for
-                creating efficient, user-friendly mobile applications. Skilled in Java, Kotlin, and the latest Android
-                development practices.</p>
-        </div>
-    </section>
-
-    <section id="projects" class="py-16 bg-green-900">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-semibold text-accent mb-6 text-center animate-fadeInUp">Projects</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Web Project (Horizontal) -->
-                <div class="bg-primary-dark shadow-md rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 cursor-pointer md:flex hover-effect"
-                    onclick="location.href='https://trolhas.pt';">
-                    <div class="h-48 md:h-auto md:w-1/2 bg-cover bg-center"
-                        style="background-image: url('./trolhas.jpg');"></div>
-                    <div class="p-6 md:w-1/2">
-                        <h3 class="text-2xl font-semibold text-accent">TrolhasPT</h3>
-                        <p class="mt-2 text-gray-400">An open market to connect constructors in Portugal with their
-                            clients with honest reviews.</p>
-                        <div class="mt-4 flex flex-wrap">
-                            <span
-                                class="bg-accent text-black text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">NextJS</span>
-                            <span
-                                class="bg-accent text-black text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">JavaScript</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mobile Project (Vertical with Mobile Print Display) -->
-                <div class="bg-primary-dark shadow-md rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 cursor-pointer flex flex-col items-center hover-effect"
-                    onclick="location.href='https://play.google.com/store/apps/details?id=com.wannabe.lifeagenda';">
-                    <div class="h-auto w-56 mt-4 bg-cover bg-center rounded-lg"
-                        style="background-image: url('./lifeagenda.png'); aspect-ratio: 9/19;"></div>
-                    <div class="p-6 text-center">
-                        <h3 class="text-2xl font-semibold text-accent">LifeAgenda</h3>
-                        <p class="mt-2 text-gray-400">A simplified agenda for Android devices.</p>
-                        <div class="mt-4 flex justify-center flex-wrap">
-                            <span
-                                class="bg-accent text-black text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">Java</span>
-                            <span
-                                class="bg-accent text-black text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">Room</span>
-                            <span
-                                class="bg-accent text-black text-sm font-medium mr-2 mb-2 px-3 py-1 rounded-full">XML</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Add more project items with similar structure as needed -->
+        <!-- Android project -->
+        <a class="project-card reveal reveal-d3" href="https://play.google.com/store/apps/details?id=com.wannabe.lifeagenda" target="_blank" rel="noopener">
+          <div class="project-thumb portrait" style="background-image:url('./lifeagenda.png');"></div>
+          <div class="project-body">
+            <div class="project-name">LifeAgenda</div>
+            <p class="project-desc">A simplified, thoughtfully designed agenda for Android. Focused on speed and frictionless daily planning.</p>
+            <div class="project-tags">
+              <span class="tag">Java</span>
+              <span class="tag">Room</span>
+              <span class="tag">Android</span>
             </div>
-        </div>
-    </section>
-
-    <section id="work" class="py-16">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-semibold text-accent mb-6 text-center animate-fadeInUp">Work Experience</h2>
-            <div class="space-y-8">
-                <div class="bg-secondary-dark shadow-md rounded-lg p-6 animate-fadeInUp">
-                    <h3 class="text-2xl font-semibold text-accent">Kuehne + Nagel International AG</h3>
-                    <p class="mt-2 text-gray-400">Position: Android Engineer</p>
-                    <p class="text-gray-500">Duration: 2023 - Present</p>
-                </div>
-                <div class="bg-secondary-dark shadow-md rounded-lg p-6 animate-fadeInUp">
-                    <h3 class="text-2xl font-semibold text-accent">Infraspeak</h3>
-                    <p class="mt-2 text-gray-400">Position: Android Developer</p>
-                    <p class="text-gray-500">Duration: 2021 - 2023</p>
-                </div>
-                <div class="bg-secondary-dark shadow-md rounded-lg p-6 animate-fadeInUp">
-                    <h3 class="text-2xl font-semibold text-accent">Nutrium</h3>
-                    <p class="mt-2 text-gray-400">Position: Android Developer</p>
-                    <p class="text-gray-500">Duration: 2020 - 2021</p>
-                </div>
+            <div class="project-link-row">
+              View on Play Store
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 6h8M6 2l4 4-4 4"/>
+              </svg>
             </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK EXPERIENCE -->
+  <section id="work" class="section section-alt">
+    <div style="max-width:860px;margin:0 auto;">
+      <div class="section-label reveal">Career</div>
+      <h2 class="section-heading reveal reveal-d1">Work Experience</h2>
+      <div class="work-list">
+
+        <div class="work-item reveal reveal-d2">
+          <div class="work-company">Kuehne + Nagel International AG</div>
+          <div class="work-role">Android Engineer</div>
+          <div class="work-period">2023 — Present</div>
         </div>
-    </section>
 
-    <section id="media" class="py-16 bg-green-900">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-semibold text-accent mb-6 text-center animate-fadeInUp">Media</h2>
-            <div id="video-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Videos will be dynamically inserted here -->
-            </div>
+        <div class="work-item reveal reveal-d3">
+          <div class="work-company">Infraspeak</div>
+          <div class="work-role">Android Developer</div>
+          <div class="work-period">2021 — 2023</div>
         </div>
-    </section>
 
-    <section id="skills" class="py-16">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-semibold
-            <h2 class=" text-3xl font-semibold text-accent mb-6 animate-fadeInUp">Stack</h2>
-            <div class="flex justify-center space-x-6">
-                <div
-                    class="bg-accent text-black font-semibold py-2 px-4 rounded-full shadow-md transform hover:scale-110 transition-transform duration-300 animate-slideInLeft">
-                    Android SDK</div>
-                <div
-                    class="bg-accent text-black font-semibold py-2 px-4 rounded-full shadow-md transform hover:scale-110 transition-transform duration-300 animate-slideInLeft">
-                    Kotlin</div>
-                <div
-                    class="bg-accent text-black font-semibold py-2 px-4 rounded-full shadow-md transform hover:scale-110 transition-transform duration-300 animate-slideInLeft">
-                    Compose</div>
-            </div>
+        <div class="work-item reveal reveal-d4">
+          <div class="work-company">Nutrium</div>
+          <div class="work-role">Android Developer</div>
+          <div class="work-period">2020 — 2021</div>
         </div>
-    </section>
 
-    <section id="contact" class="py-16 bg-green-900">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-semibold text-accent mb-6 animate-fadeInUp">Get in Touch</h2>
-            <a href="mailto:your.email@example.com"
-                class="bg-accent text-black font-semibold py-3 px-8 rounded-full shadow-md hover:bg-accent-dark transition-colors duration-300 animate-zoomIn">Contact
-                Me</a>
-        </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <footer class="bg-accent text-black py-4 text-center">
-        <p>&copy; <span id="year"></span> Paulo Lima. All rights reserved.</p>
-    </footer>
+  <!-- STACK -->
+  <section id="stack" class="section">
+    <div style="max-width:860px;margin:0 auto;">
+      <div class="section-label reveal">Technology</div>
+      <h2 class="section-heading reveal reveal-d1">Stack</h2>
+      <div class="stack-grid">
+        <div class="stack-pill reveal reveal-d1">Kotlin</div>
+        <div class="stack-pill reveal reveal-d1">Jetpack Compose</div>
+        <div class="stack-pill reveal reveal-d2">Android SDK</div>
+        <div class="stack-pill reveal reveal-d2">Room</div>
+        <div class="stack-pill reveal reveal-d2">Coroutines</div>
+        <div class="stack-pill reveal reveal-d3">RESTful APIs</div>
+        <div class="stack-pill reveal reveal-d3">Hilt / DI</div>
+        <div class="stack-pill reveal reveal-d3">MVVM</div>
+        <div class="stack-pill reveal reveal-d4">Git</div>
+        <div class="stack-pill reveal reveal-d4">CI / CD</div>
+        <div class="stack-pill reveal reveal-d4">Java</div>
+        <div class="stack-pill reveal reveal-d4">Next.js</div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        document.getElementById("year").textContent = new Date().getFullYear();
+  <!-- MEDIA -->
+  <section id="media" class="section section-alt">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div class="section-label reveal">Media</div>
+      <h2 class="section-heading reveal reveal-d1">Videos</h2>
+      <div class="media-grid" id="video-container"></div>
+    </div>
+  </section>
 
-        const videos = [
-            { id: "M7lc1UVf-VE", title: "Getting Started with YouTube Data API" },
-            { id: "bMknfKXIFA8", title: "JavaScript Tutorial for Beginners" },
-            // Add more video objects here
-        ];
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section">
+    <div class="section-label reveal">Let's Talk</div>
+    <h2 class="contact-headline reveal reveal-d1">Have a project<br/>in mind?</h2>
+    <p class="contact-sub reveal reveal-d2">I'm open for freelance contracts and interesting collaborations. Let's build something great together.</p>
+    <a href="mailto:limap2886@gmail.com" class="contact-btn reveal reveal-d3">
+      Send me an email
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 8h10M9 4l4 4-4 4"/>
+      </svg>
+    </a>
+  </section>
 
-        function createVideoElement(video) {
-            return `
-                <div class="bg-primary-dark shadow-md rounded-lg p-6 animate-fadeInUp transform hover:scale-105 transition-transform duration-300">
-                    <iframe width="100%" height="430" src="https://www.youtube.com/embed/${video.id}" title="${video.title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <p class="mt-4 text-gray-400 text-center">${video.title}</p>
-                </div>
-            `;
-        }
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">Paulo Lima</span>
+    <span class="footer-copy">&copy; <span id="year"></span> — All rights reserved</span>
+  </footer>
 
-        function displayVideos() {
-            const videoContainer = document.getElementById('video-container');
-            videos.forEach(video => {
-                videoContainer.innerHTML += createVideoElement(video);
-            });
-        }
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-        displayVideos();
-    </script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => io.observe(el));
+
+    // Videos
+    const videos = [
+      { id: "M7lc1UVf-VE", title: "Getting Started with YouTube Data API" },
+      { id: "bMknfKXIFA8", title: "JavaScript Tutorial for Beginners" },
+    ];
+
+    const vc = document.getElementById('video-container');
+    videos.forEach((v, i) => {
+      vc.innerHTML += `
+        <div class="media-card reveal reveal-d${(i % 3) + 2}">
+          <iframe src="https://www.youtube.com/embed/${v.id}" title="${v.title}"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen loading="lazy"></iframe>
+          <div class="media-title">${v.title}</div>
+        </div>`;
+    });
+
+    // Re-observe newly added media cards
+    document.querySelectorAll('.media-card.reveal').forEach(el => io.observe(el));
+  </script>
 </body>
-
 </html>
